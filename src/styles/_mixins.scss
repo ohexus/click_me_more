@@ -1,0 +1,63 @@
+@mixin basic($height, $width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin basicSquare($size) {
+  height: $size;
+  width: $size;
+}
+
+@mixin fill-parent {
+  height: 100%;
+  width: 100%;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin dis-flex($justify-content, $align-items) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin dis-flex-column($justify-content, $align-items) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin absolute-0-0-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@mixin absolute-0-0-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@mixin absolute-0-0-bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin absolute-0-0-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin marpad-0-0 {
+  margin: 0;
+  padding: 0;
+}

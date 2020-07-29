@@ -1,0 +1,9 @@
+@import 'reset';
+@import 'styles';
+
+.App {
+  @include dis-flex-column(flex-start, center);
+
+  font-family: 'Roboto-Regular';
+  font-weight: 300;
+}
