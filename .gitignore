@@ -24,3 +24,6 @@ yarn-error.log*
 
 #.code-workspace
 *.code-workspace
+
+# .prettierrc.json
+.prettierrc.json
