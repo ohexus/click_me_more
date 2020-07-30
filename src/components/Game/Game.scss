@@ -1,0 +1,6 @@
+@import 'styles';
+
+.game {
+  @include basic(100vh, 100vw);
+  @include flex-center;
+}
