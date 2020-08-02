@@ -93,7 +93,7 @@ function Timer() {
     <>
       <div className="timer">
         <p className="timer__change-title">Change timer length:</p>
-        <div className="timer__controls">
+        <div className="timer__controls controls">
           <Button
             customClasses={['button--timer', 'button--timer--left']}
             clickAction={increaseTimerLength}
@@ -101,7 +101,7 @@ function Timer() {
             disabled={isTimerStarted}
           ></Button>
 
-          <div className="timer__controls-splitter"></div>
+          <div className="controls__splitter"></div>
 
           <Button
             customClasses={['button--timer', 'button--timer--right']}
