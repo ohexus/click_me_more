@@ -1,0 +1,65 @@
+@import 'variables';
+
+@keyframes create-circle {
+  from {
+    transform: scale(0);
+    opacity: 0.75;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+}
+
+@keyframes pulse-main-circle {
+  0% {
+    transform: scale(1);
+  }
+
+  33% {
+    transform: scale(0.99);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+
+  74% {
+    transform: scale(0.99);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes text-blink {
+  0% {
+    color: $secondary-color;
+  }
+
+  26% {
+    color: transparent;
+  }
+
+  34% {
+    color: $secondary-color;
+  }
+
+  52% {
+    color: $secondary-color;
+  }
+
+  71% {
+    color: transparent;
+  }
+
+  83% {
+    color: $secondary-color;
+  }
+
+  100% {
+    color: $secondary-color;
+  }
+}

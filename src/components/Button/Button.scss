@@ -1,0 +1,65 @@
+@import 'styles';
+
+.button {
+  padding: $button-padding;
+
+  border: 1px solid $main-color;
+  border-radius: $button-border-radius;
+
+  outline: 0;
+
+  box-sizing: border-box;
+
+  background-color: transparent;
+  color: $black-color;
+
+  text-decoration: none;
+
+  font-size: 1rem;
+
+  transition: 0.2s;
+
+  font-family: 'Roboto-Regular';
+
+  &--disabled {
+    color: $button-disabled-color;
+  }
+
+  &:hover:not([disabled]) {
+    background-color: $button-hover-color;
+
+    cursor: pointer;
+  }
+
+  &:active:not([disabled]) {
+    // box-shadow: none;
+    transform: scale(0.95);
+    
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 1px $button-hover-color;
+  }
+
+  &--timer {
+
+    border: 0;
+
+    font-size: 1.25rem;
+
+    font-family: 'Roboto-MediumItalic';
+
+    &--left {
+      padding-left: $timer-button-padding-side;
+
+      border-radius: $timer-button-border-radius 0 0 $timer-button-border-radius;
+    }
+
+    &--right {
+      padding-right: $timer-button-padding-side;
+
+      border-radius: 0 $timer-button-border-radius $timer-button-border-radius 0;
+    }
+  }
+
+}

@@ -1,0 +1,93 @@
+@import 'styles';
+
+.click-button {
+  @include basicSquare($click-button-size);
+
+  position: relative;
+
+  border: solid 2px $secondary-color;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  background-color: $main-color;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  &__list {
+    @include marpad-0-0;
+
+    position: relative;
+
+    width: 100%;
+
+    list-style: none;
+
+    &-wrapper {
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: 90%;
+
+      z-index: 1;
+    }
+  }
+
+  &__text {
+    @include marpad-0-0;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+
+    width: max-content;
+
+    color: $black-color;
+
+    font-family: 'Roboto-LightItalic';
+    font-size: 2.4rem;
+    // font-weight: bold;
+
+    transition: 0.3s;
+
+    // &--displayed {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    // }
+  }
+
+  &__circle {
+    @include basic(100%, 100%);
+    @include absolute-0-0-top-left;
+
+    background: #C6AC8F;
+    border-radius: 50%;
+
+    transform: scale(0);
+
+    animation: create-circle 1.25s ease-out backwards;
+  }
+
+  &:hover {
+    animation: pulse-main-circle 1.25s 0.3s ease-in-out infinite;
+  }
+
+  &:active {
+    animation: none;
+
+    transition: 0.1s;
+    transform: scale(0.99);
+  }
+}

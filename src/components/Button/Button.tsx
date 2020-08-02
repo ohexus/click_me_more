@@ -3,25 +3,32 @@ import './Button.scss';
 
 import classNames from 'classnames';
 
-import { CapitalizeFirstLetter } from '../../helpers/stringCases';
+import { capitalizeFirstLetter } from '../../helpers/stringCases';
 
 interface ButtonProps {
   customClasses?: string[];
   buttonTitle?: string;
   clickAction?: Function;
+  disabled?: boolean;
 }
 
 function Button({
   customClasses = [],
   buttonTitle = 'button',
   clickAction = () => console.log('click'),
+  disabled = false,
 }: ButtonProps) {
   return (
     <button
-      className={classNames('button', ...customClasses)}
-      onClick={() => clickAction()}
+      className={classNames(
+        'button',
+        { 'button--disabled': disabled },
+        ...customClasses
+      )}
+      onClick={() => (disabled ? null : clickAction())}
+      disabled={disabled}
     >
-      {CapitalizeFirstLetter(buttonTitle)}
+      {capitalizeFirstLetter(buttonTitle)}
     </button>
   );
 }

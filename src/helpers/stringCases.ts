@@ -6,7 +6,7 @@ export function titleCase(str: string): string {
     : str;
 }
 
-export function CapitalizeFirstLetter(str: string): string {
+export function capitalizeFirstLetter(str: string): string {
   return str.length
     ? str[0].toUpperCase() + str.slice(1)
     : str;

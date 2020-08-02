@@ -1,42 +1,34 @@
-import React, { useState, useEffect, useCallback, useReducer } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './Timer.scss';
 
+import { GameContext } from '../../stores/gameStore/reducer';
+import { TimerContext } from '../../stores/timerStore/reducer';
+
+import Button from '../Button/Button';
+
 import timePipe from '../../helpers/timePipe';
-
-import { TimerState } from '../../stores/timer/types';
-import { timerReducer } from '../../stores/timer/reducer';
-
-const timerInitialValue: number = 10;
-const timerInitialState: TimerState = {
-  total: timerInitialValue,
-  current: timerInitialValue,
-};
+import fixFloat from '../../helpers/fixFloat';
 
 function Timer() {
-  const [timerWidth, setTimerWidth] = useState<number>(5); // rem
+  const { gameState, dispatchGame } = useContext(GameContext);
+  const { timerState, dispatchTimer } = useContext(TimerContext);
 
-  const [timerState, timerDispatch] = useReducer(
-    timerReducer,
-    timerInitialState
-  );
-  // const [timerTotal, setTimerTotal] = useState<number>(10);
-  // const [timerState.current, setTimerStimerState.current] = useState<number>(10);
+  const [timerWidth, setTimerWidth] = useState<number>(5); // rem
 
   const widthMultiplier = 1.5;
   const timerStep = 0.1;
 
   const [isTimerStarted, setIsTimerStarted] = useState<boolean>(false);
-  // const [timerId, setTimerId] = useState<NodeJS.Timeout>();
 
   const increaseTimerLength = (): void => {
-    timerDispatch({ type: 'increaseAll' });
+    dispatchTimer({ type: 'increaseAll' });
 
     changeTimerWidth();
   };
 
   const decreaseTimerLength = (): void => {
     if (timerState.total > 1) {
-      timerDispatch({ type: 'decreaseAll' });
+      dispatchTimer({ type: 'decreaseAll' });
 
       changeTimerWidth();
     }
@@ -50,27 +42,28 @@ function Timer() {
     setTimerWidth(multTimerWidth());
   }, [multTimerWidth]);
 
-  const startTimer = (): void => {
+  const startTimer = useCallback((): void => {
     if (!isTimerStarted) {
       setIsTimerStarted(true);
     }
-  };
+  }, [isTimerStarted]);
 
   const finishTimer = useCallback((): void => {
-    setIsTimerStarted(false);
-
-    timerDispatch({
+    dispatchGame({ type: 'stop' });
+    dispatchTimer({
       type: 'setCurrent',
       count: timerState.total,
     });
-  }, [timerState]);
+
+    setIsTimerStarted(false);
+  }, [dispatchGame, dispatchTimer, timerState]);
 
   useEffect(() => {
     if (isTimerStarted) {
       const timerId = setInterval(() => {
-        timerDispatch({
+        dispatchTimer({
           type: 'setCurrent',
-          count: parseFloat((timerState.current - timerStep).toFixed(2)), // correct time fix
+          count: fixFloat(timerState.current - timerStep),
         });
 
         if (timerState.current <= 0) {
@@ -81,35 +74,41 @@ function Timer() {
         if (timerId) clearInterval(timerId);
       };
     }
-  }, [changeTimerWidth, timerState, finishTimer, isTimerStarted]);
+  }, [isTimerStarted, dispatchTimer, timerState, finishTimer]);
 
   useEffect(() => {
     changeTimerWidth();
-  }, [changeTimerWidth, timerState]);
+  }, [changeTimerWidth]);
+
+  useEffect(() => {
+    if (gameState.status && !isTimerStarted) {
+      startTimer();
+    }
+    if (!gameState.status && isTimerStarted) {
+      finishTimer();
+    }
+  }, [gameState.status, isTimerStarted, startTimer, finishTimer]);
 
   return (
     <>
       <div className="timer">
-        <button onClick={startTimer}>start</button>
         <p className="timer__change-title">Change timer length:</p>
         <div className="timer__controls">
-          <button
-            className="timer__increase"
-            onClick={increaseTimerLength}
+          <Button
+            customClasses={['button--timer', 'button--timer--left']}
+            clickAction={increaseTimerLength}
+            buttonTitle={'increase'}
             disabled={isTimerStarted}
-          >
-            Increase
-          </button>
+          ></Button>
 
           <div className="timer__controls-splitter"></div>
 
-          <button
-            className="timer__decrease"
-            onClick={decreaseTimerLength}
+          <Button
+            customClasses={['button--timer', 'button--timer--right']}
+            clickAction={decreaseTimerLength}
+            buttonTitle={'decrease'}
             disabled={isTimerStarted || timerState.total <= 1}
-          >
-            Decrease
-          </button>
+          ></Button>
         </div>
 
         <div className="timer__value">{timePipe(timerState.current)}</div>

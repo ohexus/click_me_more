@@ -2,5 +2,7 @@
 
 .game {
   @include basic(100vh, 100vw);
-  @include flex-center;
+  @include dis-flex-column(space-evenly, center);
+
+  background: $main-background-color;
 }

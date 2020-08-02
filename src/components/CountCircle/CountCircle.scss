@@ -1,0 +1,14 @@
+@import 'styles';
+
+.count {
+  @include basicSquare(4rem);
+  @include flex-center;
+
+  border: 1px solid $main-color;
+  border-radius: 50%;
+
+  &__number {
+    font-family: "Roboto-Thin";
+    font-size: 1.75rem;
+  }
+}

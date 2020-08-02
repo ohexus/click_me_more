@@ -1,0 +1,19 @@
+@import 'styles';
+
+.action-bar {
+  @include dis-flex(space-between, center);
+
+  &>* {
+    margin: 0 2.5rem;
+  }
+}
+
+@supports (gap: 5rem) {
+  .action-bar {
+    gap: 5rem;
+
+    &>* {
+      margin: 0;
+    }
+  }
+}

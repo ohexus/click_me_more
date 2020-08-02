@@ -1,4 +1,10 @@
+import { createContext } from 'react';
 import { TimerActionTypes, TimerState } from './types';
+
+export const initialTimerState: TimerState = {
+  total: 10,
+  current: 10,
+};
 
 export const timerReducer = (state: TimerState, action: TimerActionTypes) => {
   switch (action.type) {
@@ -24,3 +30,11 @@ export const timerReducer = (state: TimerState, action: TimerActionTypes) => {
       throw new Error('Unexpected action');
   }
 };
+
+export const TimerContext = createContext<{
+  timerState: typeof initialTimerState;
+  dispatchTimer: (action: TimerActionTypes) => void;
+}>({
+  timerState: initialTimerState,
+  dispatchTimer: () => {},
+});
