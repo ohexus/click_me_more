@@ -24,7 +24,7 @@ function CountCircle() {
       clicksCountState.count !== prevCount &&
       clicksCountState.count % 10 === 0
     ) {
-      setFontSizeStep(fontSizeStep - fontSizeStep / 2);
+      setFontSizeStep(fontSizeStep - fontSizeStep / 1.5);
     }
   }, [clicksCountState.count, prevCount, fontSizeStep]);
 
