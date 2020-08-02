@@ -4,7 +4,7 @@
   @include basicSquare(4rem);
   @include flex-center;
 
-  border: 1px solid $main-color;
+  border: 1px solid $secondary-color;
   border-radius: 50%;
 
   &__number {

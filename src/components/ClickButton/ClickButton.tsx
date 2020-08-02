@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import './ClickButton.scss';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import classNames from 'classnames';
 
 import { GameContext } from '../../stores/gameStore/reducer';
@@ -9,11 +11,11 @@ import { ClicksCountContext } from '../../stores/clicksCountStore/reducer';
 import { titleCase } from '../../helpers/stringCases';
 import useClicksSpeed from '../../hooks/useClicksSpeed';
 
-interface ClickButtonProps {
-  customClasses?: string[];
+interface Circle {
+  id: string;
 }
 
-function ClickButton({ customClasses = [] }: ClickButtonProps) {
+function ClickButton() {
   const { gameState } = useContext(GameContext);
   const { dispatchClicksCount } = useContext(ClicksCountContext);
 
@@ -22,11 +24,16 @@ function ClickButton({ customClasses = [] }: ClickButtonProps) {
 
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>();
 
-  const [circles, setCircles] = useState(['circle']);
+  const [circles, setCircles] = useState<Circle[]>([]);
 
   const onClick = () => {
     dispatchClicksCount({ type: 'increase' });
     increaseClicks();
+    addCircle();
+  };
+
+  const addCircle = () => {
+    setCircles([...circles, { id: uuidv4() }]);
   };
 
   const increaseClicks = () => {
@@ -62,6 +69,14 @@ function ClickButton({ customClasses = [] }: ClickButtonProps) {
     resetSpeed,
   ]);
 
+  useEffect(() => {
+    if (!gameState.status) {
+      setTimeout(() => {
+        setCircles([]);
+      }, 1250); // circle animation time
+    }
+  }, [gameState.status]);
+
   return (
     <div
       className="click-button"
@@ -75,7 +90,7 @@ function ClickButton({ customClasses = [] }: ClickButtonProps) {
         </ul>
       </div>
       {circles.map((circle) => (
-        <div key={circle} className="click-button__circle"></div>
+        <div key={circle.id} className="click-button__circle"></div>
       ))}
     </div>
   );
