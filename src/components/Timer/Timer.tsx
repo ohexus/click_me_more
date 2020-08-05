@@ -92,7 +92,7 @@ function Timer() {
   return (
     <>
       <div className="timer">
-        <p className="timer__change-title">Change timer length:</p>
+        <p className="timer__title">Change timer length:</p>
         <div className="timer__controls controls">
           <Button
             customClasses={['button--timer', 'button--timer--left']}

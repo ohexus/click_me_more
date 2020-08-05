@@ -5,6 +5,12 @@
 
   font-size: 1.1rem;
 
+  &__title {
+    margin-bottom: 0.5rem;
+
+    font-family: 'Roboto-Light';
+  }
+
   &__value {
     margin: 20px 0 10px;
 

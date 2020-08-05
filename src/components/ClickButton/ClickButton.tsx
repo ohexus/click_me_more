@@ -84,8 +84,29 @@ function ClickButton() {
     >
       <div className="click-button__list-wrapper">
         <ul className="click-button__list">
-          <li className={classNames('click-button__text')}>
-            {gameState.status ? `${clicksSpeed} c/s` : titleCase('game over!')}
+          <li
+            className={classNames('click-button__text', {
+              'click-button__text--displayed': gameState.status,
+            })}
+          >
+            {clicksSpeed} c/s
+          </li>
+          <li
+            className={classNames('click-button__text', {
+              'click-button__text--displayed':
+                !gameState.status && !gameState.delay.status,
+            })}
+          >
+            {titleCase(gameState.isFirstGame ? 'press start' : 'game over!')}
+          </li>
+          <li
+            className={classNames('click-button__text', {
+              'click-button__text--displayed': gameState.delay.status,
+            })}
+          >
+            {gameState.delay.count > 0
+              ? gameState.delay.count
+              : titleCase('go!')}
           </li>
         </ul>
       </div>
