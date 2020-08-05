@@ -71,7 +71,7 @@
     @include basic(100%, 100%);
     @include absolute-0-0-top-left;
 
-    background: $button-hover-background-color;
+    background: $click-button-circle-background-color;
     border-radius: 50%;
 
     transform: scale(0);
@@ -88,5 +88,11 @@
 
     transition: 0.1s;
     transform: scale(0.99);
+  }
+
+  &--text-blink-hover:hover {
+    .click-button__text {
+      animation: text-blink 5s 0.3s ease-in-out infinite;
+    }
   }
 }
