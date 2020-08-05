@@ -6,7 +6,7 @@ export const initialGameState: GameState = {
   isFirstGame: true,
   delay: {
     status: false,
-    count: 0,
+    count: -1,
   },
 };
 
@@ -31,7 +31,7 @@ export const gameReducer = (state: GameState, action: GameActionTypes) => {
         status: false,
         delay: {
           status: false,
-          count: 0,
+          count: -1,
         },
       } as GameState;
 

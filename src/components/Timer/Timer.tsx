@@ -98,7 +98,7 @@ function Timer() {
             customClasses={['button--timer', 'button--timer--left']}
             clickAction={increaseTimerLength}
             buttonTitle={'increase'}
-            disabled={isTimerStarted}
+            disabled={isTimerStarted || gameState.delay.status}
           ></Button>
 
           <div className="controls__splitter"></div>
@@ -107,7 +107,9 @@ function Timer() {
             customClasses={['button--timer', 'button--timer--right']}
             clickAction={decreaseTimerLength}
             buttonTitle={'decrease'}
-            disabled={isTimerStarted || timerState.total <= 1}
+            disabled={
+              isTimerStarted || gameState.delay.status || timerState.total <= 1
+            }
           ></Button>
         </div>
 

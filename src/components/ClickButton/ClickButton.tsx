@@ -109,7 +109,9 @@ function ClickButton() {
           >
             {gameState.delay.count > 0
               ? gameState.delay.count
-              : titleCase('go!')}
+              : gameState.delay.count === 0
+                ? titleCase('go!')
+                : ''}
           </li>
         </ul>
       </div>
