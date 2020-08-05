@@ -16,7 +16,7 @@ interface Circle {
 }
 
 function ClickButton() {
-  const { gameState } = useContext(GameContext);
+  const { gameState, dispatchGame } = useContext(GameContext);
   const { dispatchClicksCount } = useContext(ClicksCountContext);
 
   const [clicksPerStep, setClicksPerStep] = useState(0);
@@ -27,9 +27,13 @@ function ClickButton() {
   const [circles, setCircles] = useState<Circle[]>([]);
 
   const onClick = () => {
-    dispatchClicksCount({ type: 'increase' });
-    increaseClicks();
-    addCircle();
+    if (gameState.status) {
+      dispatchClicksCount({ type: 'increase' });
+      increaseClicks();
+      addCircle();
+    } else {
+      if (!gameState.delay.status) dispatchGame({ type: 'start' });
+    }
   };
 
   const addCircle = () => {
@@ -83,7 +87,7 @@ function ClickButton() {
         'click-button--text-blink-hover':
           !gameState.status && !gameState.delay.status,
       })}
-      onClick={() => (gameState.status ? onClick() : null)}
+      onClick={onClick}
     >
       <div className="click-button__list-wrapper">
         <ul className="click-button__list">
@@ -110,8 +114,8 @@ function ClickButton() {
             {gameState.delay.count > 0
               ? gameState.delay.count
               : gameState.delay.count === 0
-                ? titleCase('go!')
-                : ''}
+              ? titleCase('go!')
+              : ''}
           </li>
         </ul>
       </div>
