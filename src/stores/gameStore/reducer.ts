@@ -13,13 +13,17 @@ export const initialGameState: GameState = {
 export const gameReducer = (state: GameState, action: GameActionTypes) => {
   switch (action.type) {
     case 'start':
-      return {
-        ...state,
-        delay: {
-          status: true,
-          count: 3,
-        },
-      } as GameState;
+      if (state.status) {
+        return state;
+      } else {
+        return {
+          ...state,
+          delay: {
+            status: true,
+            count: 3,
+          },
+        } as GameState;
+      }
 
     case 'stop':
       return {

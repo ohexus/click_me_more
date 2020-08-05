@@ -79,7 +79,10 @@ function ClickButton() {
 
   return (
     <div
-      className="click-button"
+      className={classNames('click-button', {
+        'click-button--text-blink-hover':
+          !gameState.status && !gameState.delay.status,
+      })}
       onClick={() => (gameState.status ? onClick() : null)}
     >
       <div className="click-button__list-wrapper">
